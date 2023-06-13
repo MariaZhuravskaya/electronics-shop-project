@@ -1,4 +1,4 @@
-from poetry.console.commands import self
+
 
 
 class Item:
