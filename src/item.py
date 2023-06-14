@@ -6,6 +6,7 @@ class Item:
     pay_rate = 0.8
     all = []
 
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
@@ -27,6 +28,7 @@ class Item:
         :return: Общая стоимость товара.
         """
         return self.price * self.quantity
+
 
     def apply_discount(self) -> None:
         """
