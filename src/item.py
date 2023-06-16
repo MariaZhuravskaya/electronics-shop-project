@@ -1,10 +1,15 @@
 import csv
 
+import pathlib
+from pathlib import Path
+
 
 class Item:
+
     """
     Класс для представления товара в магазине.
     """
+
     pay_rate = 0.8
     all = []
 
@@ -30,11 +35,11 @@ class Item:
         """
         Проверяет, что длина наименования товара не больше 10 симвовов. В противном случае, обрезать строку (оставить первые 10 символов)
         """
-        if len(name_len) > 10:
-            # print(Exception('Длина наименования товара превышает 10 символов'))
-            self.__name = name_len[:10]
-        else:
+        if len(name_len) < 10:
             self.__name = name_len
+        else:
+            self.__name = name_len[:10]
+
 
     def calculate_total_price(self) -> float:
         """
@@ -55,12 +60,19 @@ class Item:
         """
         Инициализируюет экземпляры класса `Item` данными из файла _src/items.csv
         """
+        # Получаем строку, содержащую путь к рабочей директории:
+        dir_path = pathlib.Path.home()
+
+        # Объединяем полученную строку с недостающими частями пути
+        path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
+
         cls.all.clear()
-        with open('../src/items.csv', newline='') as csvfile:
+        with open(path, newline='') as csvfile:
+        #with open('../src/items.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                a = cls(row['name'], row['price'], row['quantity'])
-            return cls.all
+                item = cls(row['name'], row['price'], row['quantity'])
+            return item
 
     @staticmethod
     def string_to_number(string):
