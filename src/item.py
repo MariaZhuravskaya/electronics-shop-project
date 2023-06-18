@@ -64,11 +64,11 @@ class Item:
         dir_path = pathlib.Path.home()
 
         # Объединяем полученную строку с недостающими частями пути
-        path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
+        #path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
 
         cls.all.clear()
-        with open(path, newline='') as csvfile:
-        #with open('../src/items.csv', newline='') as csvfile:
+        #with open(path, newline='') as csvfile:
+        with open('../src/items.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], row['price'], row['quantity'])
