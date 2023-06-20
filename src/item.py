@@ -5,7 +5,6 @@ from pathlib import Path
 
 
 class Item:
-
     """
     Класс для представления товара в магазине.
     """
@@ -26,6 +25,7 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+
     @property
     def name(self):
         return self.__name
@@ -39,7 +39,6 @@ class Item:
             self.__name = name_len
         else:
             self.__name = name_len[:10]
-
 
     def calculate_total_price(self) -> float:
         """
@@ -61,13 +60,13 @@ class Item:
         Инициализируюет экземпляры класса `Item` данными из файла _src/items.csv
         """
         # Получаем строку, содержащую путь к рабочей директории:
-        dir_path = pathlib.Path.home()
+        # dir_path = pathlib.Path.home()
 
         # Объединяем полученную строку с недостающими частями пути
-        #path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
+        # path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
 
         cls.all.clear()
-        #with open(path, newline='') as csvfile:
+        # with open(path, newline='') as csvfile:
         with open('../src/items.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -80,3 +79,8 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(string))
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f'{self.__name}'
