@@ -1,5 +1,6 @@
 import csv
 
+
 import pathlib
 from pathlib import Path
 
@@ -24,7 +25,6 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
-
 
     @property
     def name(self):
@@ -79,6 +79,14 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(string))
+
+    def __add__(self, other):
+        if not isinstance(self, Item) or not isinstance(other, Item):
+            raise Exception
+        else:
+            return self.quantity + other.quantity
+
+
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
