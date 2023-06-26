@@ -37,7 +37,7 @@ class Phone(Item):
 class Pass:
     def __init__(self, name, price, quantity):
         """
-        Создание экземпляра класса item.
+        Создание класса Pass.
 
         :param name: Название товара.
         :param price: Цена за единицу товара.
