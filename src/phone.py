@@ -4,7 +4,7 @@ from src.item import Item
 class Phone(Item):
     def __init__(self, name, price, quantity, number_of_sim):
         """
-        Создание экземпляра класса item.
+        Создание экземпляра класса Phone.
 
         :param name: Название товара.
         :param price: Цена за единицу товара.
