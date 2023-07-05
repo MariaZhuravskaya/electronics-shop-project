@@ -1,8 +1,16 @@
 import csv
 
-
 import pathlib
 from pathlib import Path
+
+
+class InstantiateCSVError(Exception):
+
+    def __init__(self, *args):
+        self.messege = args[0] if args else 'Файл items.csv поврежден'
+
+    def __str__(self):
+        return self.messege
 
 
 class Item:
@@ -26,7 +34,6 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
         super().__init__()
-
 
     @property
     def name(self):
@@ -66,14 +73,19 @@ class Item:
 
         # Объединяем полученную строку с недостающими частями пути
         # path = Path(dir_path, 'Documents', 'skypro_projects', 'electronics-shop-project', 'src', 'items.csv')
-
+        file = '../src/items.csv'
         cls.all.clear()
         # with open(path, newline='') as csvfile:
-        with open('../src/items.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                item = cls(row['name'], row['price'], row['quantity'])
-            return item
+        try:
+            with open(file, newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if 'quantity' not in reader.fieldnames and 'name' not in reader.fieldnames and 'price' not in reader.fieldnames:
+                        raise InstantiateCSVError
+                    item = cls(row['name'], row['price'], row['quantity'])
+                return item
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл items.csv')
 
     @staticmethod
     def string_to_number(string):
@@ -87,7 +99,6 @@ class Item:
             raise Exception
         else:
             return self.quantity + other.quantity
-
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
